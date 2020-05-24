@@ -3,6 +3,7 @@ import Charts from "./Components/Charts/Charts";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Loading from "./Components/loading";
+import Choropleth from "./Components/choropleth/choropleth"
 
 import {
     parseStateTimeseries,
@@ -67,6 +68,8 @@ function App() {
         <div className="App">
             <Header count={countryCount}/>
             <Charts latestDataset={statesDailyResponse} dataset={statesDailyResponse}/>
+            <Choropleth dataset={states}/>
+            
             <Footer/>
         </div>
     );

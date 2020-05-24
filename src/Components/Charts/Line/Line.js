@@ -24,6 +24,7 @@ function Line({inputData, days, types, classes}) {
     return (
         <div className='lineD' ref={lineDRef}>
             <div className={'buttonsGrp'}>
+                <h6>Select one of the options to view trends</h6>
                 <div className={'buttons'}>
                     {Object.keys(type).map(b => (
                             <button className={type[b] ? classes[b] : 'A'} onClick={updateType} value={b}

@@ -60,7 +60,7 @@ function Race({inputData, startDate, endDate, types}) {
             <div className={'titleWrapper'}>
                 <div className={'title'}>
                     <div className={'text'}> Indian States Race Chart</div>
-                </div>
+                </div>  
                 <div className={'buttonsGrp'}>
                     <div className={'buttons'}>
                         <button onClick={resetGraph} value='reset' className={'redBtn'}>reset</button>
@@ -68,7 +68,6 @@ function Race({inputData, startDate, endDate, types}) {
                         <button onClick={resetGraph} value='pause' className={'blueBtn'}>pause</button>
                     </div>
                     <ChildSelection types={types} btnClick={updateType} selected={type}/>
-
                 </div>
             </div>
             <RaceChart data={data} startDate={startDate} currDate={currDate}/>

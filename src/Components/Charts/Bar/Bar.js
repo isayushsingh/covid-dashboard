@@ -21,6 +21,7 @@ function Bar({inputData, days, types, classes}) {
     return (
         <div className='barD'>
             <div className={'buttonsGrp'}>
+                <h6>select from below</h6>
                 <ChildSelection types={types} btnClick={updateType} selected={type}/>
             </div>
             <BarChart data={data} type={type} days={days} selectedClass={classes[type]}/>

@@ -71,6 +71,7 @@ function Charts({dataset, latestDataset}) {
                         <div className={'text'}>Historical Data</div>
                     </div>
                     <div className={'buttonsGrp'}>
+                        
                         <Selection updateState={updateState} updateDays={updateDays} state={state} days={days}
                                    states={states} maxDays={maxDays}/></div>
                 </div>
