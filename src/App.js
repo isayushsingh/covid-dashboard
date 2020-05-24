@@ -3,14 +3,50 @@ import Charts from "./Components/Charts/Charts";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Loading from "./Components/loading";
+import {
+    parseStateTimeseries,
+  
+  } from './utils/commonfunctions';
+
 
 
 function App() {
 
     const[countryCount, SetCountryCount] =  useState({})
+    const[statesDailyResponse, SetStatesDailyResponse] = useState({})
     useEffect(() => {
+            
+        
+        //states daily data
+        fetch('https://api.covid19india.org/states_daily.json')
+        .then((response) => response.json())
+        .then(data => {
 
-        fetch('https://api.covid19india.org/data.json')
+            const ts = parseStateTimeseries(data);
+
+            console.log(ts)
+            
+        })
+
+        //district wise data
+        fetch('https://api.covid19india.org/state_district_wise.json')
+        .then((response) => response.json())
+        .then(data => {
+
+            
+
+            console.log(data)
+            
+        })
+        
+        
+        
+        
+        
+        
+        
+            //total cases
+            fetch('https://api.covid19india.org/data.json')
             .then((response) => response.json())
             .then(dataset => {
                 let countryCount = {
