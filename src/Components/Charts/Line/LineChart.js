@@ -37,17 +37,17 @@ function LineChart({data, days, type, classes}) {
 
         const lineData = data.slice(-days);
         const dateDomain = extent(lineData, d => d.date);
-        const confirmedMax = max(lineData, d => d.confirmed);
+        const confirmedMax = max(lineData, d => d.totalconfirmed);
         xScale.domain(dateDomain)
         yScale.domain([0, confirmedMax])
         lineG.x(d => xScale(d.date))
-        lineG.y(d => yScale(d.confirmed))
-        const confirmed = (lineG(lineData))
-        lineG.y(d => yScale(d.deaths))
-        const deaths = (lineG(lineData))
-        lineG.y(d => yScale(d.recovered))
-        const recovered = (lineG(lineData))
-        setLines({confirmed: confirmed, deaths: deaths, recovered: recovered})
+        lineG.y(d => yScale(d.totalconfirmed))
+        const totalconfirmed = (lineG(lineData))
+        lineG.y(d => yScale(d.totaldeceased))
+        const totaldeceased = (lineG(lineData))
+        lineG.y(d => yScale(d.totalrecovered))
+        const totalrecovered = (lineG(lineData))
+        setLines({totalconfirmed: totalconfirmed, totaldeceased: totaldeceased, totalrecovered: totalrecovered})
         select(xAxisRef.current).call(xAxis).attr('transform', `translate(0,${height - margin.top})`).style('font-size', 'calc(5px + 1vmin)');
         select(yAxisRef.current).call(yAxis).attr('transform', `translate(${margin.left},0)`).style('font-size', 'calc(5px + 1vmin)');
 

@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Selection({updateCountry, updateDays, country, days, countries, maxDays}) {
+function Selection({updateState, updateDays, state, days, states, maxDays}) {
     return (
         <div className='sel'>
-            <select onChange={updateCountry} value={country}>
+            <select onChange={updateState} value={state}>
                 {
-                    countries.map(c => {
+                    states.map(c => {
                         return (<option key={c} value={c}>{c}</option>);
                     })
                 }

@@ -12,7 +12,6 @@ function Race({inputData, startDate, endDate, types}) {
     const [data, setData] = useState({})
     useEffect(() => {
         setType(types[0])
-
     }, [types])
     useEffect(() => {
         if (!inputData || Object.keys(inputData).length < 1) return
@@ -60,7 +59,7 @@ function Race({inputData, startDate, endDate, types}) {
         <div className='raceD'>
             <div className={'titleWrapper'}>
                 <div className={'title'}>
-                    <div className={'text'}> World Race Chart</div>
+                    <div className={'text'}> Indian States Race Chart</div>
                 </div>
                 <div className={'buttonsGrp'}>
                     <div className={'buttons'}>
