@@ -25,7 +25,7 @@ function App() {
         .then(data => {
              const statesDailyResponse = parseStateTimeseries(data);
             SetStatesDailyResponse(statesDailyResponse)
-           // console.log(statesDailyResponse)
+            //console.log(statesDailyResponse)
         })
 
         //District Wise Data
@@ -34,7 +34,7 @@ function App() {
         .then(data => {
             const stateDistrictsWise = data
             SetStateDistrictWise(stateDistrictsWise)
-           // console.log(stateDistrictsWise)
+            //console.log(stateDistrictsWise)
         })
         
         //total cases
@@ -47,17 +47,17 @@ function App() {
                 deaths: 0,
                 recovered: 0
             }
+            
+            //Data of Cases in entire country and states till data
             setStates(dataset.statewise);
+           
+            //Stats of the conutry wide cases
+            let countryTotalStats = dataset.statewise.slice(0,1)
 
-            countryCount.active =  dataset["statewise"][0]["active"];
-            countryCount.confirmed =  dataset["statewise"][0]["confirmed"];
-            countryCount.deaths =  dataset["statewise"][0]["deaths"];
-            countryCount.recovered =  dataset["statewise"][0]["recovered"];
-
-            countryCount.active = parseInt(countryCount.active,10)
-            countryCount.confirmed = parseInt(countryCount.confirmed,10)
-            countryCount.deaths = parseInt(countryCount.deaths,10)
-            countryCount.recovered = parseInt(countryCount.recovered,10)
+            countryCount.active =  countryTotalStats[0].active;
+            countryCount.confirmed =  countryTotalStats[0].confirmed;
+            countryCount.deaths =  countryTotalStats[0].deaths;
+            countryCount.recovered =  countryTotalStats[0].recovered;
 
             SetCountryCount(countryCount)
             })
@@ -69,7 +69,6 @@ function App() {
             <Header count={countryCount}/>
             <Charts latestDataset={statesDailyResponse} dataset={statesDailyResponse}/>
             <Choropleth dataset={states}/>
-            
             <Footer/>
         </div>
     );
