@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import LineChart from "./LineChart";
 import Loading from "../../loading";
 
-function Line({inputData, days, types, classes}) {
+function Line({inputData, selectedStates,days, types, classes}) {
     const lineDRef = useRef()
     const [type, setType] = useState({})
     const updateType = (e) => {
@@ -33,7 +33,7 @@ function Line({inputData, days, types, classes}) {
                     )}
                 </div>
             </div>
-            <LineChart data={inputData} days={days} type={type} classes={classes}/>
+            <LineChart data={inputData} selectedStates={selectedStates} days={days} type={type} classes={classes}/>
 
         </div>
     );

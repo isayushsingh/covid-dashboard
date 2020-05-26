@@ -15,6 +15,7 @@ function Charts({dataset, latestDataset}) {
     const [endDate, setEndDate] = useState(null)
     
     const [state, setState] = useState(null)
+    const [selected, setSelected] = useState(null)
     const [days, setDays] = useState(0)
     const [maxDays, setMaxDays] = useState(0)
     const [states, setStates] = useState([])
@@ -26,7 +27,7 @@ function Charts({dataset, latestDataset}) {
     })
 
     useEffect(() => {
-        const defaultState = 'MH'
+        const defaultState = "MH"
 
 
         const defaultStateObj = dataset[defaultState];
@@ -49,6 +50,7 @@ function Charts({dataset, latestDataset}) {
         setEndDate(endDate)
         setData(dataset)
         setState(defaultState)
+        setSelected([{label:"MH", value: "MH"},{lable:"DL",value:"DL"}])
         setDays(20)
         setMaxDays(totalDays)
         setStates(Object.keys(dataset))
@@ -56,7 +58,7 @@ function Charts({dataset, latestDataset}) {
 
 
     }, [dataset])
-    const updateState = (e) => setState(e.target.value)
+    const updateState = (e) => setSelected(e)
 
     const updateDays = (e) => setDays(e.target.value)
 
@@ -73,10 +75,10 @@ function Charts({dataset, latestDataset}) {
                     <div className={'buttonsGrp'}>
                         
                         <Selection updateState={updateState} updateDays={updateDays} state={state} days={days}
-                                   states={states} maxDays={maxDays}/></div>
+                                   states={states} maxDays={maxDays} selected={selected} setSelected={setSelected}/></div>
                 </div>
                 <div className='libDCharts'>
-                    <Line inputData={data[state]} days={days} types={types} classes={classes}/>
+                    <Line inputData={data} selectedStates = {selected} days={days} types={types} classes={classes}/>
                     <Bar inputData={data[state]} days={days} types={types} classes={classes}/>
                 </div>
             </div> }
