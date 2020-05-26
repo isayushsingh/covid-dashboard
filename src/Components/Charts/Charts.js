@@ -2,15 +2,14 @@ import React, {useEffect, useState} from 'react';
 import Race from "./Race/Race";
 import Line from "./Line/Line";
 import Bar from "./Bar/Bar";
-//import World from "./World/World";
+
+import World from "./World/World";
 import Selection from "./Builder Components/Selection";
 import Loading from "../loading";
 
 function Charts({dataset, latestDataset}) {
 
-    
-    const [data, setData] = useState({})
-
+    const [data, setData] = useState({})    
     const [startDate, setStartDate] = useState(null)
     const [endDate, setEndDate] = useState(null)
     
@@ -25,11 +24,12 @@ function Charts({dataset, latestDataset}) {
         'totaldeceased': 'redBtn',
         'totalrecovered': 'greenBtn'
     })
-
+    
+    //console.log(latestDataset)
     useEffect(() => {
         const defaultState = "MH"
 
-
+       
         const defaultStateObj = dataset[defaultState];
 
         
@@ -54,6 +54,8 @@ function Charts({dataset, latestDataset}) {
         setDays(20)
         setMaxDays(totalDays)
         setStates(Object.keys(dataset))
+       
+        
 
 
 
@@ -82,10 +84,9 @@ function Charts({dataset, latestDataset}) {
                     <Bar inputData={data[state]} days={days} types={types} classes={classes}/>
                 </div>
             </div> }
-
-            
         </div>
+        //
     );
 }
-//<World inputData={latestDataset} types={types}/>
+
 export default Charts;

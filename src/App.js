@@ -4,18 +4,24 @@ import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Loading from "./Components/loading";
 import Choropleth from "./Components/choropleth/choropleth"
+import Sunburst from 'react-sunburst-d3-v4';
 
 import {
     parseStateTimeseries,
-  
   } from './utils/commonfunctions';
 
 
 function App() {
-
+    
+    let temp = []
+        let districts = []
+        let final = {}
     const[countryCount, SetCountryCount] =  useState({})
     const[statesDailyResponse, SetStatesDailyResponse] = useState({})
     const[states, setStates] = useState(null);
+
+    const [sunburstData, setSunburstData] = useState({})
+    const[testedData, setTestedData] = useState(null);
     const[stateDistrictsWise, SetStateDistrictWise] = useState({})
     useEffect(() => {
             
@@ -28,14 +34,51 @@ function App() {
             //console.log(statesDailyResponse)
         })
 
+        
         //District Wise Data
         fetch('https://api.covid19india.org/state_district_wise.json')
         .then((response) => response.json())
         .then(data => {
             const stateDistrictsWise = data
+            
             SetStateDistrictWise(stateDistrictsWise)
             //console.log(stateDistrictsWise)
+            for (const property in stateDistrictsWise) 
+            {
+                districts = Object.getOwnPropertyNames(stateDistrictsWise[property]["districtData"])
+                //console.log(districts);
+                let cases = [];
+                for (const district in districts)
+                {
+                    //console.log(stateDistrictsWise[property]["districtData"][districts[district]])
+                    cases.push({
+                        name: districts[district],
+                        size: stateDistrictsWise[property]["districtData"][districts[district]]["confirmed"]
+                    })
+                    //console.log(districts[district]);                                        
+                }
+                temp.push({
+                    name: property,
+                    children: cases
+                })    
+            }
+            temp = temp.slice(1)
+            final = {
+                name: "India",
+                children: temp
+            }
+            setSunburstData(final)
+            console.log(final)
         })
+
+        // //Raw Data = Patients information
+        // fetch('https://api.covid19india.org/raw_data.json')
+        // .then((response) => response.json())
+        // .then(data => {
+        //     const rawData = data
+        //     setRawData(rawData)
+        // })
+
         
         //total cases
         fetch('https://api.covid19india.org/data.json')
@@ -50,6 +93,10 @@ function App() {
             
             //Data of Cases in entire country and states till data
             setStates(dataset.statewise);
+            //console.log(dataset.statewise)
+            
+            setTestedData(dataset.tested)
+            //console.log(testedData)
            
             //Stats of the conutry wide cases
             let countryTotalStats = dataset.statewise.slice(0,1)
@@ -64,12 +111,26 @@ function App() {
         }, [])
 
     if (Object.keys(statesDailyResponse).length < 1) return <Loading/>
+    
     return (
         <div className="App">
             <Header count={countryCount}/>
-            <Charts latestDataset={statesDailyResponse} dataset={statesDailyResponse}/>
+            <Charts dataset={statesDailyResponse} latestDataset={states}/>
+            
             <Choropleth dataset={states}/>
+            <Sunburst
+                data={sunburstData}
+                scale="linear"
+                tooltipContent={ <div class="sunburstTooltip" style="position:absolute; color:'black'; z-index:10; background: #e2e2e2; padding: 5px; text-align: center;" /> }
+                tooltip
+                tooltipPosition="right"
+                keyId="anagraph"
+                width="480 "
+                height="400"
+            />
             <Footer/>
+            
+            
         </div>
     );
 }

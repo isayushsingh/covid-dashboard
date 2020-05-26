@@ -7,7 +7,7 @@ function Selection({updateState, updateDays, state, days, states, maxDays, selec
     states.forEach(c => {
         return (options.push({label: c, value: c}));
     })
-    console.log(options)
+    //console.log(options)
     return (
         <div className='sel'>
             <h6>Change State</h6>

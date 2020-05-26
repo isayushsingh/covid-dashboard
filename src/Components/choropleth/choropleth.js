@@ -69,7 +69,7 @@ function Choropleth({dataset})
         });
         flag = true;
         heatMapList = heatMapList.slice(2);
-        console.log(heatMapList)
+        //console.log(heatMapList)
     }
 
     const getHeatMapData = () => {
