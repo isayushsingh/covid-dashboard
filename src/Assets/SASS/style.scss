@@ -16,17 +16,17 @@ $charts-gap: 3vmin;
   background-color: $bgcolor;
   font-size: calc(10px + 3vmin);
 .raceD {
-  grid-template-rows: 1fr 1fr auto;
+  grid-template-rows: 0.5fr 1fr auto;
 }
 
   .raceD, .lbD, .worldD {
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 0.5fr 1fr;
     background-color: $bgcolor-light;
 
     .titleWrapper {
       display: grid;
-      grid-template-rows: 1fr auto;
+      grid-template-rows: 0.5fr auto;
     }
 
     .libDCharts {
@@ -39,7 +39,7 @@ $charts-gap: 3vmin;
 
     .lineD, .barD {
       display: grid;
-      grid-template-rows: auto 1fr;
+      grid-template-rows: auto 0.5fr;
     }
 
     .RaceDD, .dd {
@@ -89,7 +89,7 @@ button, select {
   color: $light;
   background-color: $bgcolor-light-light;
   font-weight: bold;
-  max-height: 6vmin;
+  max-height: 8vmin;
 }
 
 .date {

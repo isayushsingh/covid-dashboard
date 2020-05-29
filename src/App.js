@@ -4,7 +4,7 @@ import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Loading from "./Components/loading";
 import Choropleth from "./Components/choropleth/choropleth"
-import Sunburst from 'react-sunburst-d3-v4';
+import Sunburst from "./Components/Charts/Sunburst/Sunburst"
 
 import {
     parseStateTimeseries,
@@ -43,6 +43,7 @@ function App() {
             
             SetStateDistrictWise(stateDistrictsWise)
             //console.log(stateDistrictsWise)
+           
             for (const property in stateDistrictsWise) 
             {
                 districts = Object.getOwnPropertyNames(stateDistrictsWise[property]["districtData"])
@@ -115,19 +116,21 @@ function App() {
     return (
         <div className="App">
             <Header count={countryCount}/>
-            <Charts dataset={statesDailyResponse} latestDataset={states}/>
-            
-            <Choropleth dataset={states}/>
+            <Charts dataset={statesDailyResponse} latestDataset={states} />
             <Sunburst
                 data={sunburstData}
                 scale="linear"
-                tooltipContent={ <div class="sunburstTooltip" style="position:absolute; color:'black'; z-index:10; background: #e2e2e2; padding: 5px; text-align: center;" /> }
+                tooltipContent={ <div class="sunburstTooltip" style="position:absolute; color:'black'; z-index:10; background: #000000; padding: 5px; text-align: center;" /> }
                 tooltip
                 tooltipPosition="right"
                 keyId="anagraph"
-                width="480 "
+                width="480"
                 height="400"
             />
+            <Choropleth dataset={states}/>
+           
+            
+
             <Footer/>
             
             

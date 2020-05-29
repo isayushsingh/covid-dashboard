@@ -2,8 +2,6 @@ import React, {useEffect, useState} from 'react';
 import Race from "./Race/Race";
 import Line from "./Line/Line";
 import Bar from "./Bar/Bar";
-
-import World from "./World/World";
 import Selection from "./Builder Components/Selection";
 import Loading from "../loading";
 
@@ -72,7 +70,7 @@ function Charts({dataset, latestDataset}) {
             { <div className='lbD'>
                 <div className={'titleWrapper'}>
                     <div className={'title'}>
-                        <div className={'text'}>Historical Data</div>
+                        <div className={'text'}>Compare Progress</div>
                     </div>
                     <div className={'buttonsGrp'}>
                         
@@ -84,6 +82,7 @@ function Charts({dataset, latestDataset}) {
                     <Bar inputData={data[state]} days={days} types={types} classes={classes}/>
                 </div>
             </div> }
+            
         </div>
         //
     );
