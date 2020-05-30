@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 import { scaleQuantile } from 'd3-scale';
 import ReactTooltip from 'react-tooltip';
@@ -14,21 +14,25 @@ const PROJECTION_CONFIG = {
 
 // Red Variants
 const COLOR_RANGE = [
-  '#FFFAFA',
-  '#FFCCCC',
-  '#FFC1C1',
-  '#FF6A6A',
-  '#FF6666',
-  '#FF4040',
-  '#FF3333',
-  '#FF3030',
-  '#FF0000',
-  '#EE0000',
-  '#CD0000',
-  '#8B0000',
-  '#800000',
+  '#ffe5e5',
+  '#ffcccc',
+  '#ffb2b2',
+  '#ff9999',
+  '#ff7f7f',
+  '#ff6666',
+  '#ff4c4c',
+  '#ff3232',
+  '#ff1919',
+  '#ff0000',
+  '#e50000',
+  '#cc0000',
+  '#b20000',
+  '#990000',
+  '#7f0000',
   '#660000',
-  '#330000'
+  '#4c0000',
+  '#330000',
+  '#190000'
   ];
 
 
@@ -49,44 +53,83 @@ pressed: {
 };
 
 
-let heatMapList = [{}]
+let heatMapListConfirmed = [{}]
+let heatMapListDeceased = [{}]
+let heatMapListRecovered = [{}]
 let flag = false;
+
 function Choropleth({dataset})
-{
-   
-    
+{   
+    //console.log(dataset)
     if(dataset!= null && !flag)
     {
         dataset.forEach(element => {
-            if(!(element["state" == 'Total'] || element['state' == 'State Unassigned']))
+            if(!(element["state"] === 'Total' || element['state'] === 'State Unassigned'))
             {
-                heatMapList.push({
+                heatMapListConfirmed.push({
                 id: element["statecode"],
                 state: element["state"],
                 value: element["confirmed"]
             })
         }  
         });
-        flag = true;
-        heatMapList = heatMapList.slice(2);
+        
+        heatMapListConfirmed = heatMapListConfirmed.slice(1);
+
+        dataset.forEach(element => {
+          if(!(element["state"] === 'Total' || element['state'] === 'State Unassigned'))
+          {
+              heatMapListDeceased.push({
+              id: element["statecode"],
+              state: element["state"],
+              value: element["deaths"]
+          })
+      }  
+      });
+      heatMapListDeceased = heatMapListDeceased.slice(1);
+
+
+      dataset.forEach(element => 
+      {
+        if(!(element["state"] === 'Total' || element['state'] === 'State Unassigned'))
+        {
+            heatMapListRecovered.push({
+            id: element["statecode"],
+            state: element["state"],
+            value: element["recovered"]
+        })
+        }  
+      });
+      heatMapListRecovered = heatMapListRecovered.slice(1);
         //console.log(heatMapList)
+        flag = true;
     }
 
-    const getHeatMapData = () => {
-        //console.log(heatMapList)
-        return heatMapList;
+    const getHeatMapDataRecovered = () => 
+    {
+        return heatMapListRecovered;
     }
+    const getHeatMapDataConfirmed = () => 
+    {
+      //console.log(heatMapListConfirmed)
+      return heatMapListConfirmed;
+    }
+
+  const getHeatMapDataDeaths = () => 
+  {
+    return heatMapListDeceased;
+  }
 
     const [tooltipContent, setTooltipContent] = useState('');
-    const [data, setData] = useState(getHeatMapData());
-    
+    const [data, setData] = useState(getHeatMapDataConfirmed());
+
+     
     const gradientData = 
     {
       fromColor: COLOR_RANGE[0],
       toColor: COLOR_RANGE[COLOR_RANGE.length - 1],
       min: 0,
-      max: heatMapList[0].value
-      
+      max: data[0].value 
     };
     
     const colorScale = scaleQuantile()
@@ -103,13 +146,26 @@ function Choropleth({dataset})
       setTooltipContent('');
     };
   
-    const onChangeButtonClick = () => {
-      setData(getHeatMapData());
-    };
+    const selectGraph = (e) => {
+      e.preventDefault()
+      if (e.target.value === 'red') setData(getHeatMapDataConfirmed())
+      if (e.target.value === 'green') setData(getHeatMapDataRecovered());
+      if (e.target.value === 'blue') setData(getHeatMapDataDeaths());
+  }
+
+   
   
     return (
         <div className="full-width-height container">
         <h1 className="no-margin center">COVID-19 CHOROPLETH INDIA</h1>
+        <div className={'buttonsGrp'}>
+                    <div className={'buttons'}>
+                        <button onClick={selectGraph} value='red' className={'redBtn'}>Confirmed</button>
+                        <button onClick={selectGraph} value='green' className={'greenBtn'}>Recovered</button>
+                        <button onClick={selectGraph} value='blue' className={'blueBtn'}>Deceased</button>
+                    </div>
+                    
+                </div>
         <ReactTooltip>{tooltipContent}</ReactTooltip>
           <ComposableMap
             projectionConfig={PROJECTION_CONFIG}
