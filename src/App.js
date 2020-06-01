@@ -1,29 +1,48 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useEffectOnce} from 'react';
 import Charts from "./Components/Charts/Charts";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Loading from "./Components/loading";
 import Choropleth from "./Components/choropleth/choropleth"
+import Sunburst from "./Components/Charts/Sunburst/Sunburst"
+import BarchartHierarchyWrapper from "./Components/HBar/BarchartHierarchyWrapper";
+
+import SankeyChart from "./Components/Sankey/SankeyChart"
 
 import {
     parseStateTimeseries,
+    parseDistrictZones,
   } from './utils/commonfunctions';
 
-
-function App() {
-    
+function App() 
+{
     let temp = []
-        let districts = []
-        let final = {}
-    const[countryCount, SetCountryCount] =  useState({})
-    const[statesDailyResponse, SetStatesDailyResponse] = useState({})
-    const[states, setStates] = useState(null);
+    let districts = []
+    let final = {}
 
+    let flag =false
+    const [countryCount, SetCountryCount] =  useState({})
+    const [statesDailyResponse, SetStatesDailyResponse] = useState({})
+    const [states, setStates] = useState(null);
+    const [districtZones, setDistrictZones] = useState(null);
+    const [rawData, setRawData] = useState({})
     const [sunburstData, setSunburstData] = useState({})
-    const[testedData, setTestedData] = useState(null);
-    const[stateDistrictsWise, SetStateDistrictWise] = useState({})
-    useEffect(() => {
+    const [testedData, setTestedData] = useState(null);
+    const [stateDistrictsWise, SetStateDistrictWise] = useState({})
+    const[sankeytotal, setSankeyTotal] = useState(null)
+    
+    useEffect(() => {  
+        
+        let total ={}
+
+        //States Zones
+        fetch('https://api.covid19india.org/zones.json')
+        .then((response) => response.json())
+        .then(data => {
+            setDistrictZones(parseDistrictZones(data.zones));
             
+        })
+
         //States Daily Data and Cumulative Data
         fetch('https://api.covid19india.org/states_daily.json')
         .then((response) => response.json())
@@ -32,8 +51,7 @@ function App() {
             SetStatesDailyResponse(statesDailyResponse)
             //console.log(statesDailyResponse)
         })
-
-        
+      
         //District Wise Data
         fetch('https://api.covid19india.org/state_district_wise.json')
         .then((response) => response.json())
@@ -42,6 +60,7 @@ function App() {
             
             SetStateDistrictWise(stateDistrictsWise)
             //console.log(stateDistrictsWise)
+           
             for (const property in stateDistrictsWise) 
             {
                 districts = Object.getOwnPropertyNames(stateDistrictsWise[property]["districtData"])
@@ -52,7 +71,7 @@ function App() {
                     //console.log(stateDistrictsWise[property]["districtData"][districts[district]])
                     cases.push({
                         name: districts[district],
-                        size: stateDistrictsWise[property]["districtData"][districts[district]]["confirmed"]
+                        value: stateDistrictsWise[property]["districtData"][districts[district]]["confirmed"]
                     })
                     //console.log(districts[district]);                                        
                 }
@@ -70,15 +89,21 @@ function App() {
             console.log(final)
         })
 
-        // //Raw Data = Patients information
-        // fetch('https://api.covid19india.org/raw_data.json')
-        // .then((response) => response.json())
-        // .then(data => {
-        //     const rawData = data
-        //     setRawData(rawData)
-        // })
-
-        
+        //Raw
+        fetch('https://api.covid19india.org/raw_data.json')
+        .then((response) => response.json())
+        .then(data => {
+            let rawData = data
+            setRawData(rawData)
+            let count = 20000;
+            total ={1:1}
+            rawData.raw_data.forEach(element => 
+            {      
+                //console.log(element)
+            })
+        setSankeyTotal(total)
+    }, [])
+    
         //total cases
         fetch('https://api.covid19india.org/data.json')
         .then((response) => response.json())
@@ -109,17 +134,41 @@ function App() {
             })
         }, [])
 
-    if (Object.keys(statesDailyResponse).length < 1) return <Loading/>
+    if(rawData === null) {
+        return <Loading/>
+    }
+
+    if(sankeytotal === null) {
+        return <Loading/>
+    }
+  
     
+    if (Object.keys(statesDailyResponse).length < 1) return <Loading/>
     return (
         <div className="App">
             <Header count={countryCount}/>
             <Charts dataset={statesDailyResponse} latestDataset={states} sunburst={sunburstData}/>
+            {/*<Sunburst
+                data={sunburstData}
+                scale="linear"
+                tooltipContent={ <div class="sunburstTooltip" style="position:absolute; color:'black'; z-index:10; background: #000000; padding: 5px; text-align: center;" /> }
+                tooltip
+                tooltipPosition="right"
+                keyId="anagraph"
+                width="480"
+                height="400"
+            />*/}
+
+                {sunburstData ? (
+                <BarchartHierarchyWrapper data={sunburstData}></BarchartHierarchyWrapper>
+                ) : (
+                    <div>Loading data</div>
+                )}
             <Choropleth dataset={states}/>
+            <br></br>
             
+            <SankeyChart rawData={rawData.raw_data}/>
             <Footer/>
-            
-            
         </div>
     );
 }

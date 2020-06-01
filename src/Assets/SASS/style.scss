@@ -7,28 +7,28 @@
 $charts-gap: 3vmin;
 
 .charts {
-  height: 500vh;
+  height: 275vh;
   display: grid;
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: repeat(2);
   grid-auto-flow: row;
   row-gap: $charts-gap;
   padding: $charts-gap;
   background-color: $bgcolor;
   font-size: calc(10px + 3vmin);
 .raceD {
-  grid-template-rows: 1fr 1fr auto;
+  grid-template-rows: 0.5fr 1fr auto;
 }
   .sun{
     overflow: auto;
   }
   .raceD, .lbD, .worldD {
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 0.25fr 2fr;
     background-color: $bgcolor-light;
 
     .titleWrapper {
       display: grid;
-      grid-template-rows: 1fr auto;
+      grid-template-rows: 0.5fr auto;
     }
 
     .libDCharts {
@@ -41,7 +41,7 @@ $charts-gap: 3vmin;
 
     .lineD, .barD {
       display: grid;
-      grid-template-rows: auto 1fr;
+      grid-template-rows: auto 0.85fr;
     }
 
     .RaceDD, .dd {
@@ -50,7 +50,7 @@ $charts-gap: 3vmin;
     }
 
     .title {
-      font-size: calc(10px + 3vmin);
+      font-size: calc(7px + 3vmin);
       background-size: cover;
       display: grid;
       grid-template-areas: "." "text" "." "."
@@ -66,6 +66,8 @@ $charts-gap: 3vmin;
       padding: $charts-gap;
       display: grid;
 
+      
+
       .buttons, .sel {
         display: grid;
         grid-auto-flow: column;
@@ -76,7 +78,10 @@ $charts-gap: 3vmin;
   }
 
   .raceD {
-    grid-template-rows: auto 45% 5%;
+    grid-template-rows: auto 70% 5%;
+  }
+  .libDCharts{
+    grid-template-rows: auto;
   }
 }
 
@@ -92,11 +97,11 @@ button, select {
   color: $light;
   background-color: $bgcolor-light-light;
   font-weight: bold;
-  max-height: 6vmin;
+  max-height: 8vmin;
 }
 
 .date {
-  font-size: calc(5px + 1.5vmin);
+  font-size: calc(15px + 1.5vmin);
   padding: 2%;
   justify-self: end;
   align-self: center;
@@ -129,15 +134,7 @@ option {
 }
 
 
-.worldD .title {
-  background: linear-gradient(
-                  to top,
-                  rgba(0, 0, 0, 0),
-                  rgba(0, 0, 0, 1)
-  ),
-  url('../Images/world.jpg');
-  background-size: cover;
-}
+
 
 #root > div > div > div.lbD > div.titleWrapper > div.buttonsGrp {
   padding-bottom: 0;
