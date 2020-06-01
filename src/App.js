@@ -4,7 +4,6 @@ import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Loading from "./Components/loading";
 import Choropleth from "./Components/choropleth/choropleth"
-import Sunburst from 'react-sunburst-d3-v4';
 
 import {
     parseStateTimeseries,
@@ -115,19 +114,9 @@ function App() {
     return (
         <div className="App">
             <Header count={countryCount}/>
-            <Charts dataset={statesDailyResponse} latestDataset={states}/>
-            
+            <Charts dataset={statesDailyResponse} latestDataset={states} sunburst={sunburstData}/>
             <Choropleth dataset={states}/>
-            <Sunburst
-                data={sunburstData}
-                scale="linear"
-                tooltipContent={ <div class="sunburstTooltip" style="position:absolute; color:'black'; z-index:10; background: #e2e2e2; padding: 5px; text-align: center;" /> }
-                tooltip
-                tooltipPosition="right"
-                keyId="anagraph"
-                width="480 "
-                height="400"
-            />
+            
             <Footer/>
             
             

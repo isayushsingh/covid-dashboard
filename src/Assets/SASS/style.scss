@@ -18,7 +18,9 @@ $charts-gap: 3vmin;
 .raceD {
   grid-template-rows: 1fr 1fr auto;
 }
-
+  .sun{
+    overflow: auto;
+  }
   .raceD, .lbD, .worldD {
     display: grid;
     grid-template-rows: 1fr 1fr;
@@ -44,6 +46,7 @@ $charts-gap: 3vmin;
 
     .RaceDD, .dd {
       display: flex;
+      overflow: auto; 
     }
 
     .title {

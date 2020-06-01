@@ -6,9 +6,12 @@ import Bar from "./Bar/Bar";
 import World from "./World/World";
 import Selection from "./Builder Components/Selection";
 import Loading from "../loading";
+import Sunburst from 'react-sunburst-d3-v4';
 
-function Charts({dataset, latestDataset}) {
 
+function Charts({dataset, latestDataset,sunburst}) {
+
+    
     const [data, setData] = useState({})    
     const [startDate, setStartDate] = useState(null)
     const [endDate, setEndDate] = useState(null)
@@ -19,6 +22,7 @@ function Charts({dataset, latestDataset}) {
     const [maxDays, setMaxDays] = useState(0)
     const [states, setStates] = useState([])
     const [types, setTypes] = useState([])
+    const [type, setType] = useState({})
     const [classes] = useState({
         'totalconfirmed': 'blueBtn',
         'totaldeceased': 'redBtn',
@@ -54,9 +58,13 @@ function Charts({dataset, latestDataset}) {
         setDays(20)
         setMaxDays(totalDays)
         setStates(Object.keys(dataset))
-       
+        console.log(types)
+        setType({
+            totalconfirmed : true,
+            totaldeceased : false,
+            totalrecovered : false
+        })
         
-
 
 
     }, [dataset])
@@ -64,6 +72,12 @@ function Charts({dataset, latestDataset}) {
 
     const updateDays = (e) => setDays(e.target.value)
 
+    const updateType = (e) => {
+        e.preventDefault()
+        setType(p => ({
+            ...p,
+            [e.target.value]: !p[e.target.value]
+        }))}
 
     if (Object.keys(data).length < 1) return <Loading/>
     return (
@@ -80,12 +94,25 @@ function Charts({dataset, latestDataset}) {
                                    states={states} maxDays={maxDays} selected={selected} setSelected={setSelected}/></div>
                 </div>
                 <div className='libDCharts'>
-                    <Line inputData={data} selectedStates = {selected} days={days} types={types} classes={classes}/>
-                    <Bar inputData={data[state]} days={days} types={types} classes={classes}/>
+                    <Line inputData={data} selectedStates = {selected} days={days} type={type} types={types} updateTypes = {updateType} classes={classes}/>
+                    <Bar inputData={data[state]} selectedStates = {selected} days={days} type={type} types={types} classes={classes}/>
                 </div>
             </div> }
-        </div>
-        //
+            
+            <Sunburst
+            
+                data={sunburst}
+                scale="linear"
+                tooltipContent={ <div class="sunburstTooltip" style="position:absolute; color:'black'; z-index:10; background: #e2e2e2; padding: 5px; text-align: center;" /> }
+                tooltip
+                tooltipPosition="right"
+                keyId="anagraph"
+                width="800 "
+                height="800"
+            />
+            </div>
+        
+        
     );
 }
 
