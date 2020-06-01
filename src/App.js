@@ -5,6 +5,8 @@ import Footer from "./Components/Footer";
 import Loading from "./Components/loading";
 import Choropleth from "./Components/choropleth/choropleth"
 import Sunburst from "./Components/Charts/Sunburst/Sunburst"
+import BarchartHierarchyWrapper from "./Components/HBar/BarchartHierarchyWrapper";
+
 import SankeyChart from "./Components/Sankey/SankeyChart"
 
 import {
@@ -70,7 +72,7 @@ function App()
                     //console.log(stateDistrictsWise[property]["districtData"][districts[district]])
                     cases.push({
                         name: districts[district],
-                        size: stateDistrictsWise[property]["districtData"][districts[district]]["confirmed"]
+                        value: stateDistrictsWise[property]["districtData"][districts[district]]["confirmed"]
                     })
                     //console.log(districts[district]);                                        
                 }
@@ -140,13 +142,14 @@ function App()
     if(sankeytotal === null) {
         return <Loading/>
     }
+  
     
     if (Object.keys(statesDailyResponse).length < 1) return <Loading/>
     return (
         <div className="App">
             <Header count={countryCount}/>
             <Charts dataset={statesDailyResponse} latestDataset={states} />
-            <Sunburst
+            {/*<Sunburst
                 data={sunburstData}
                 scale="linear"
                 tooltipContent={ <div class="sunburstTooltip" style="position:absolute; color:'black'; z-index:10; background: #000000; padding: 5px; text-align: center;" /> }
@@ -155,7 +158,13 @@ function App()
                 keyId="anagraph"
                 width="480"
                 height="400"
-            />
+            />*/}
+
+                {sunburstData ? (
+                <BarchartHierarchyWrapper data={sunburstData}></BarchartHierarchyWrapper>
+                ) : (
+                    <div>Loading data</div>
+                )}
             <Choropleth dataset={states}/>
             <br></br>
             

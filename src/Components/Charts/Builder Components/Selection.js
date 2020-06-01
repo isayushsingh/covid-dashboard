@@ -24,7 +24,7 @@ function Selection({updateState, updateDays, state, days, states, maxDays, selec
                     })
                 }
             </select> */}
-            <h6>  Select Time Duration---></h6>
+            <h6> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Select Time Duration-></h6>
             <select onChange={updateDays} value={days}>
                 {
                     [...Array(maxDays + 1).keys()].map((i) => {
