@@ -2,8 +2,6 @@ import React, {useEffect, useState} from 'react';
 import Race from "./Race/Race";
 import Line from "./Line/Line";
 import Bar from "./Bar/Bar";
-
-import World from "./World/World";
 import Selection from "./Builder Components/Selection";
 import Loading from "../loading";
 import Sunburst from 'react-sunburst-d3-v4';
@@ -86,7 +84,7 @@ function Charts({dataset, latestDataset,sunburst}) {
             { <div className='lbD'>
                 <div className={'titleWrapper'}>
                     <div className={'title'}>
-                        <div className={'text'}>Historical Data</div>
+                        <div className={'text'}>Compare Progress</div>
                     </div>
                     <div className={'buttonsGrp'}>
                         
@@ -99,20 +97,10 @@ function Charts({dataset, latestDataset,sunburst}) {
                 </div>
             </div> }
             
-            <Sunburst
-            
-                data={sunburst}
-                scale="linear"
-                tooltipContent={ <div class="sunburstTooltip" style="position:absolute; color:'black'; z-index:10; background: #e2e2e2; padding: 5px; text-align: center;" /> }
-                tooltip
-                tooltipPosition="right"
-                keyId="anagraph"
-                width="800 "
-                height="800"
-            />
+
             </div>
-        
-        
+        </div>
+
     );
 }
 

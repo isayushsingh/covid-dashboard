@@ -10,7 +10,7 @@ function Selection({updateState, updateDays, state, days, states, maxDays, selec
     //console.log(options)
     return (
         <div className='sel'>
-            <h6>Change State</h6>
+            <h6>Select states to compare -></h6>
             <MultiSelect
                 options={options}
                 value={selected}
@@ -24,7 +24,7 @@ function Selection({updateState, updateDays, state, days, states, maxDays, selec
                     })
                 }
             </select> */}
-            <h6>Change Duration</h6>
+            <h6> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Select Time Duration-></h6>
             <select onChange={updateDays} value={days}>
                 {
                     [...Array(maxDays + 1).keys()].map((i) => {
