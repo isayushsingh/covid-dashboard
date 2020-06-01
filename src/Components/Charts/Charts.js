@@ -98,8 +98,8 @@ function Charts({dataset, latestDataset,sunburst}) {
             </div> }
             
 
-            </div>
         </div>
+     
 
     );
 }

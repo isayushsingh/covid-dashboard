@@ -6,7 +6,6 @@ import Loading from "./Components/loading";
 import Choropleth from "./Components/choropleth/choropleth"
 //import Sunburst from "./Components/Charts/Sunburst/Sunburst"
 import BarchartHierarchyWrapper from "./Components/HBar/BarchartHierarchyWrapper";
-
 import SankeyChart from "./Components/Sankey/SankeyChart"
 
 import {
@@ -147,13 +146,7 @@ function App()
     if (Object.keys(statesDailyResponse).length < 1) return <Loading/>
     return (
         <div className="App">
-            <Header count={countryCount}/>
-
-            <Charts dataset={statesDailyResponse} latestDataset={states} sunburst={sunburstData}/>
-            <Choropleth dataset={states}/>
-            
-            <Footer/>
-            
+            <Header count={countryCount}/>            
 
             <Charts dataset={statesDailyResponse} latestDataset={states} />
             {/*<Sunburst
@@ -174,7 +167,6 @@ function App()
                 )}
             <Choropleth dataset={states}/>
             <br></br>
-
             
             <SankeyChart rawData={rawData.raw_data}/>
             <Footer/>
