@@ -7,10 +7,10 @@ import Choropleth from "./Components/choropleth/choropleth"
 //import Sunburst from "./Components/Charts/Sunburst/Sunburst"
 import BarchartHierarchyWrapper from "./Components/HBar/BarchartHierarchyWrapper";
 import SankeyChart from "./Components/Sankey/SankeyChart"
-
 import {
     parseStateTimeseries,
     parseDistrictZones,
+    preprocessTimeseries
   } from './utils/commonfunctions';
 
 function App() 
@@ -30,6 +30,8 @@ function App()
     const [testedData, setTestedData] = useState(null);
     const [stateDistrictsWise, SetStateDistrictWise] = useState({})
     const[sankeytotal, setSankeyTotal] = useState(null)
+
+    const[timeseries, setTimeSeries] = useState(null)
     
     useEffect(() => {  
         
@@ -47,7 +49,9 @@ function App()
         fetch('https://api.covid19india.org/states_daily.json')
         .then((response) => response.json())
         .then(data => {
+            
              const statesDailyResponse = parseStateTimeseries(data);
+             //console.log(statesDailyResponse)
             SetStatesDailyResponse(statesDailyResponse)
             //console.log(statesDailyResponse)
         })
@@ -115,6 +119,9 @@ function App()
                 recovered: 0
             }
             
+            console.log(preprocessTimeseries(dataset.cases_time_series));
+            setTimeSeries(preprocessTimeseries(dataset.cases_time_series));
+
             //Data of Cases in entire country and states till data
             setStates(dataset.statewise);
             //console.log(dataset.statewise)
@@ -141,7 +148,11 @@ function App()
     if(sankeytotal === null) {
         return <Loading/>
     }
-  
+    
+    if(timeseries === null)
+    {
+        return <Loading/>
+    }
     
     if (Object.keys(statesDailyResponse).length < 1) return <Loading/>
     return (

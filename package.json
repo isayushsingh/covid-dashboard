@@ -40,9 +40,11 @@
     "react-sunburst-d3-v4": "^0.1.6",
     "react-tooltip": "^4.2.6",
     "react-use": "^15.1.0",
+    "recharts": "^1.8.5",
     "sankey-d3-react": "github:harryli0088/sankey-d3-react",
     "swr": "^0.2.2",
-    "topojson": "^3.0.2"
+    "topojson": "^3.0.2",
+    "trendline": "^0.3.1"
   },
   "scripts": {
     "start": "react-scripts start",

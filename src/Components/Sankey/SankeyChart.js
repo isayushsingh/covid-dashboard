@@ -124,8 +124,8 @@ function SankeyChart({rawData})
             nodes:[
             {node:0, label:'Total', color:"white"},
             {node:1,  label:'Active',color:"red"},
-            {node:2,  label:'Male',color:"grey"},
-            {node:3,  label:'Female',color:"grey"},
+            {node:2,  label:'Male',color:"blue"},
+            {node:3,  label:'Female',color:"pink"},
             {node:4,  label:'Age 0-20',color:"grey"},
             {node:5,  label:'Age 21-40',color:"grey"},
             {node:6,  label:'Age 41-60',color:"grey"},
@@ -165,8 +165,8 @@ function SankeyChart({rawData})
             {node:4,  label:'Age 41-60',color:"grey"},
             {node:5,  label:'Age 61-80 ',color:"grey"},
             {node:6,  label:'Age 81-100',color:"grey"},
-            {node:7,  label:'Male',color:"grey"},
-            {node:8,  label:'Female',color:"grey"},
+            {node:7,  label:'Male',color:"blue"},
+            {node:8,  label:'Female',color:"pink"},
         ],
         links:[
             {source:0,target:1,value:total.recovered.count,labelDx:0},
@@ -194,9 +194,9 @@ function SankeyChart({rawData})
         const data3 = {
             nodes:[
             {node:0, label:'Total', color:"white"},
-            {node:1,  label:'Deceased',color:"blue"},
-            {node:2,  label:'Male',color:"grey"},
-            {node:3,  label:'Female',color:"grey"},
+            {node:1,  label:'Deceased',color:"grey"},
+            {node:2,  label:'Male',color:"blue"},
+            {node:3,  label:'Female',color:"pink"},
             {node:4,  label:'Age 0-20',color:"grey"},
             {node:5,  label:'Age 21-40',color:"grey"},
             {node:6,  label:'Age 41-60',color:"grey"},
@@ -230,7 +230,8 @@ function SankeyChart({rawData})
 
         return (
             <div className="full-width-height container">
-            <h1 className="no-margin center">DEMOGRAPHICS SANKEY CHART</h1>
+            <h1 className="no-margin center">DEMOGRAPHICS ANALYSIS</h1>
+            <h5 className="no-margin center">ON A SAMPLE OF 2000 PATIENTS</h5>
             <h3>Active</h3>
             <Sankey
                 data={data1} //only required prop, should be object with fields nodes and links
@@ -247,8 +248,8 @@ function SankeyChart({rawData})
                 linkStroke="#fff"
                 nodeStroke="gray"
                 nodeStrokeWidth={2} //or string
-                 nodeWidth={36}
-                 getLinkTitle= {link => link.source.label + " → " + link.target.label + " : "+ link.value}
+                nodeWidth={36}
+                getLinkTitle= {link => link.source.label + " → " + link.target.label + " : "+ link.value}
                 nodePadding={40} //padding top and bottom between the nodes
             />
             <br></br>

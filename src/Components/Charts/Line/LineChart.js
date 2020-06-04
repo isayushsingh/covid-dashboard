@@ -17,6 +17,8 @@ function LineChart({data,selectedStates, days, type, classes}) {
 
     const [lines, setLines] = useState([])
 
+    var color =['#FF0000', '#00FF00', '#EE82EE']
+
     var colorArray = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', 
 		  '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
 		  '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A', 
@@ -93,29 +95,74 @@ function LineChart({data,selectedStates, days, type, classes}) {
         })
        
         setLines(temp)
+        console.log(lines)
         select(xAxisRef.current).call(xAxis).attr('transform', `translate(0,${height - margin.top})`).style('font-size', 'calc(5px + 1vmin)');
         select(yAxisRef.current).call(yAxis).attr('transform', `translate(${margin.left},0)`).style('font-size', 'calc(5px + 1vmin)');
         
 
     }, [data, type, dimensions, days,selectedStates])
 
-    
     return (
         <div ref={wrapperDivRef} className={'dd'}>
             
             <svg ref={svgRef} >
+
+            
                 
                 {type['totalconfirmed'] ? lines.map((line, i) =>{
-            return(<path d={line['totalconfirmed']} fill='none' stroke={colorArray[i]} strokeWidth='0.3rem' key={i} />)
+            return(<path id={"C"+line.state.value} d={line['totalconfirmed']} fill='none' stroke={color[0]} strokeWidth='0.1rem' key={i} />
+            )
                 }):''}
+
+             {
+                lines.map((line, i) => {
+                    return(
+                  
+                    <text x="10" y="100" class="small" style={{fill : 'white', font: 'italic bold 12px sans-serif'}}>
+                    <textPath href={"#C"+line.state.value}>
+                        {line.state.value}
+                    </textPath>
+                    </text>)
+
+                 })
+             }   
+            
+            
+                
 
                 {type['totaldeceased'] ? lines.map((line, i) =>{
-            return(<path d={line['totaldeceased']} fill='none' stroke={colorArray[selectedStates.length+i]} strokeWidth='0.3rem' key={i+100}/>)
+            return(<path id={"D"+line.state.value} d={line['totaldeceased']} fill='none' stroke={color[2]} strokeWidth='0.1rem' key={i+100}/>)
                 }):''}
 
+{
+                lines.map((line, i) => {
+                    return(
+                  
+                    <text x="400" y="100" class="small" style={{fill : 'white', font: 'italic bold 12px sans-serif'}}>
+                    <textPath href={"#D"+line.state.value}>
+                        {line.state.value}
+                    </textPath>
+                    </text>)
+
+                 })
+             }  
+
                 {type['totalrecovered'] ? lines.map((line, i) =>{
-            return(<path d={line['totalrecovered']} fill='none' stroke={colorArray[2*selectedStates.length+i]} strokeWidth='0.3rem' key={i+200}/>)
+            return(<path  id={"R"+line.state.value} d={line['totalrecovered']} fill='none' stroke={color[1]} strokeWidth='0.1rem' key={i+200}/>)
                 }):''}
+
+{
+                lines.map((line, i) => {
+                    return(
+                  
+                    <text x="100" y="100" class="small" style={{fill : 'white', font: 'italic bold 12px sans-serif'}}>
+                    <textPath href={"#R"+line.state.value}>
+                        {line.state.value}
+                    </textPath>
+                    </text>)
+
+                 })
+             }  
 
                 {/* <path d={lines} fill='none' stroke='#FF0000' strokeWidth='0.3rem' /> */}
                 <g>
