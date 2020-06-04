@@ -106,8 +106,6 @@ function LineChart({data,selectedStates, days, type, classes}) {
         <div ref={wrapperDivRef} className={'dd'}>
             
             <svg ref={svgRef} >
-
-            
                 
                 {type['totalconfirmed'] ? lines.map((line, i) =>{
             return(<path id={"C"+line.state.value} d={line['totalconfirmed']} fill='none' stroke={color[0]} strokeWidth='0.1rem' key={i} />

@@ -159,6 +159,7 @@ function App()
             <Header count={countryCount}/>            
 
             <Charts dataset={statesDailyResponse} latestDataset={states} />
+            <Choropleth dataset={states}/>
             {/*<Sunburst
                 data={sunburstData}
                 scale="linear"
@@ -175,7 +176,6 @@ function App()
                 ) : (
                     <div>Loading data</div>
                 )}
-            <Choropleth dataset={states}/>
             <br></br>
             
             <SankeyChart rawData={rawData.raw_data}/>

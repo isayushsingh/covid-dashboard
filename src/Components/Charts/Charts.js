@@ -93,7 +93,7 @@ function Charts({dataset, latestDataset,sunburst}) {
                 </div>
                 <div className='libDCharts'>
                     <Line inputData={data} selectedStates = {selected} days={days} type={type} types={types} updateTypes = {updateType} classes={classes}/>
-                    <Bar inputData={data[state]} selectedStates = {selected} days={days} type={type} types={types} classes={classes}/>
+                    
                 </div>
             </div> }
             
