@@ -47,6 +47,7 @@ export default function BarChartHierarchy(target) {
 
     let max = 1;
     root.each(d => d.children && (max = Math.max(max, d.children.length)));
+    console.log("max : " + max + " root.value = " + root.value)
     height = max * barStep + margin.top + margin.bottom;
 
     const svg = d3
@@ -117,6 +118,12 @@ export default function BarChartHierarchy(target) {
     }
 
     function down(svg, d) {
+
+      console.log("in down")
+        let max = 5;
+      // root.each(d => d.children && (max = Math.max(max, d.children.length)));
+      console.log("max : " + max + " root.value = " + root.value)
+      height = max * barStep + margin.top + margin.bottom;
       if (!d.children || d3.active(svg.node())) return;
 
       // Rebind the current node to the background.
@@ -178,6 +185,8 @@ export default function BarChartHierarchy(target) {
     }
 
     function up(svg, d) {
+
+      console.log("in up")
       if (!d.parent || !svg.selectAll(".exit").empty()) return;
 
       // Rebind the current node to the background.
