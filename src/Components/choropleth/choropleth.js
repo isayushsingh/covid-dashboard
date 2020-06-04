@@ -13,7 +13,7 @@ const PROJECTION_CONFIG = {
 };
 
 // Red Variants
-const COLOR_RANGE = [
+const COLOR_RANGE_RED = [
   '#ffe5e5',
   '#ffcccc',
   '#ffb2b2',
@@ -34,6 +34,49 @@ const COLOR_RANGE = [
   '#330000',
   '#190000'
   ];
+  // Green Variants
+const COLOR_RANGE_GREEN = [
+  '#e5ffe5',
+  '#ccffcc',
+  '#b2ffb2',
+  '#99ff99',
+  '#7fff7f',
+  '#66ff66',
+  '#4cff4c',
+  '#32ff32',
+  '#19ff19',
+  '#00ff00',
+  '#00e500',
+  '#00cc00',
+  '#00b200',
+  '#009900',
+  '#007f00',
+  '#006600',
+  '#004c00',
+  '#003300',
+  '#001900'
+  ];
+  const COLOR_RANGE_BLUE = [
+    '#e5e5ff',
+    '#ccccff',
+    '#b2b2ff',
+    '#9999ff',
+    '#7f7fff',
+    '#6666ff',
+    '#4c4cff',
+    '#3232ff',
+    '#1919ff',
+    '#0000ff',
+    '#0000e5',
+    '#0000cc',
+    '#0000b2',
+    '#000099',
+    '#00007f',
+    '#000066',
+    '#00004c',
+    '#000033',
+    '#000019'
+    ];
 
 
 const DEFAULT_COLOR = '#EEE';
@@ -120,9 +163,9 @@ function Choropleth({dataset})
     return heatMapListDeceased;
   }
 
-    const [tooltipContent, setTooltipContent] = useState('');
-    const [data, setData] = useState(getHeatMapDataConfirmed());
-
+  const [tooltipContent, setTooltipContent] = useState('');
+  const [data, setData] = useState(getHeatMapDataConfirmed());
+  const [COLOR_RANGE, setColorRange] = useState(COLOR_RANGE_RED)
      
     const gradientData = 
     {
@@ -148,9 +191,9 @@ function Choropleth({dataset})
   
     const selectGraph = (e) => {
       e.preventDefault()
-      if (e.target.value === 'red') setData(getHeatMapDataConfirmed())
-      if (e.target.value === 'green') setData(getHeatMapDataRecovered());
-      if (e.target.value === 'blue') setData(getHeatMapDataDeaths());
+      if (e.target.value === 'red') {setData(getHeatMapDataConfirmed()); setColorRange(COLOR_RANGE_RED)}
+      if (e.target.value === 'green') {setData(getHeatMapDataRecovered()); setColorRange(COLOR_RANGE_GREEN)}
+      if (e.target.value === 'blue') {setData(getHeatMapDataDeaths()); setColorRange(COLOR_RANGE_BLUE)}
   }
 
    
