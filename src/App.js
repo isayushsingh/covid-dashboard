@@ -15,7 +15,6 @@ import {
 
 function App() 
 {
-    
     let temp = []
     let districts = []
     let final = {}
@@ -124,7 +123,7 @@ function App()
 
             //Data of Cases in entire country and states till data
             setStates(dataset.statewise);
-            //console.log(dataset.statewise)
+            console.log(dataset.statewise)
             
             setTestedData(dataset.tested)
             //console.log(testedData)
