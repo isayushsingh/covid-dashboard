@@ -96,22 +96,12 @@ function Charts({dataset, latestDataset,sunburst}) {
                     <Bar inputData={data[state]} selectedStates = {selected} days={days} type={type} types={types} classes={classes}/>
                 </div>
             </div> }
-        
-            <Sunburst
             
-                data={sunburst}
-                scale="linear"
-                tooltipContent={ <div class="sunburstTooltip" style="position:absolute; color:'black'; z-index:10; background: #e2e2e2; padding: 5px; text-align: center;" /> }
-                tooltip
-                tooltipPosition="right"
-                keyId="anagraph"
-                width="800 "
-                height="800"
-            />
-            </div>
-        
-        
-);
+
+        </div>
+     
+
+    );
 }
 
 export default Charts;

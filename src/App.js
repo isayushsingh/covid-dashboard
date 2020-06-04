@@ -4,9 +4,8 @@ import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Loading from "./Components/loading";
 import Choropleth from "./Components/choropleth/choropleth"
-import Sunburst from "./Components/Charts/Sunburst/Sunburst"
+//import Sunburst from "./Components/Charts/Sunburst/Sunburst"
 import BarchartHierarchyWrapper from "./Components/HBar/BarchartHierarchyWrapper";
-
 import SankeyChart from "./Components/Sankey/SankeyChart"
 
 import {
@@ -117,7 +116,7 @@ function App()
             
             //Data of Cases in entire country and states till data
             setStates(dataset.statewise);
-            //console.log(dataset.statewise)
+            console.log(dataset.statewise)
             
             setTestedData(dataset.tested)
             //console.log(testedData)
@@ -146,8 +145,9 @@ function App()
     if (Object.keys(statesDailyResponse).length < 1) return <Loading/>
     return (
         <div className="App">
-            <Header count={countryCount}/>
-            <Charts dataset={statesDailyResponse} latestDataset={states} sunburst={sunburstData}/>
+            <Header count={countryCount}/>            
+
+            <Charts dataset={statesDailyResponse} latestDataset={states} />
             {/*<Sunburst
                 data={sunburstData}
                 scale="linear"
